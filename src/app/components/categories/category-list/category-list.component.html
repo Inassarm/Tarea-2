@@ -3,8 +3,12 @@
         <div class="category-item">
             <h2>Category: {{ category.name }}</h2>
             <p>Description: {{ category.description }}</p>
-            <button (click)="callUpdateModalMethod.emit(category)" class="btn btn-success">Edit</button>
-            <button (click)="callDeleteMethod.emit(category)" class="btn btn-danger">Delete</button>
+            @if (areActionsAvailable) {
+                <div class="category-actions">
+                    <button (click)="callUpdateModalMethod.emit(category)" class="btn btn-success">Edit</button>
+                    <button (click)="callDeleteMethod.emit(category)" class="btn btn-danger">Delete</button>
+                </div>
+            }
         </div>
     } @empty {
         <p>No categories available.</p>

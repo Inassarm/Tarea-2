@@ -9,7 +9,7 @@
                 }
             </div>
             <p>Price: {{product.price}}</p>
-            <p>Price: {{product.stockQuantity}}</p>
+            <p>Stock: {{product.stockQuantity}}</p>
             @if (areActionsAvailable) {
                 <button (click)="callUpdateModalMethod.emit(product)" class="btn btn-success">Edit</button>
                 <button  (click)="callDeleteMethod.emit(product)" class="btn btn-danger">Delete</button>

@@ -1,5 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {ICategory} from "../../../interfaces";
+import { AuthService } from '../../../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../../../services/product.service';
 
 @Component({
   selector: 'app-category-list',
@@ -12,5 +15,23 @@ export class CategoryListComponent {
   @Input() pCategoryList: ICategory[] = [];
   @Output() callUpdateModalMethod: EventEmitter<ICategory> = new EventEmitter<ICategory>();
   @Output() callDeleteMethod: EventEmitter<ICategory> = new EventEmitter<ICategory>();
+  public authService: AuthService = inject(AuthService);
+  public areActionsAvailable: boolean = false;
+  public route: ActivatedRoute = inject(ActivatedRoute);
+
+
+
+
+    ngOnInit(): void {
+        this.authService.getUserAuthorities();
+        this.route.data.subscribe(data => {
+            this.areActionsAvailable = this.authService.areActionsAvailable(data['authorities'] ? data['authorities'] : []);
+        });
+    }
+
 
 }
+
+
+
+
